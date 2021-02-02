@@ -88,19 +88,6 @@ def group_msgs(msgs):
 
 
 def main():
-    payload = {
-        "username": "zikav29z",
-        "password": "1c2zkH51",
-        "returnUrl": "/dashboard",
-        "login": "",
-    }
-    page_komens = send_payload("https://zsebenese.bakalari.cz/Login", "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
-                               payload)
-
-    msgs = get_msgs(get_idmsg(page_komens))
-
-    msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
-
     @app.route('/')
     def index():
-        return render_template('index.html', msgs=msgs)
+        return render_template('index.html')
