@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<article class="msgs">
+            {% autoescape false %}
+                {% for key in msgs%}
+                    <ul class="key">
+                        <h2>{{ key[0]["Jmeno"] }}</h2>
+                        {% for msg in key %}
+                        <li class="msg">
+                            <p>
+                                <b>{{ msg["Cas"] }}</b><br/>
+                                {{ msg["MessageText"] }}
+                            </p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% endautoescape %}
+</article>
+
+{% endblock %}

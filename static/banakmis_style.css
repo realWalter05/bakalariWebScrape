@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}
+
+.msgs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    height: auto;
+}
+
+.key {
+    width: 20vw;
+    min-height: 50vh;
+    max-height: 50vh;
+    height: 50vh;
+    background: white;
+    position: relative;
+    word-break: break-all;
+    white-space: normal;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.key h2 {
+  background: rgb(100, 100, 240);
+  padding: 10px;
+  margin: 0;
+}
+
+.msg {
+    height: 50%;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.msg:nth-child(odd) {
+    background: rgb(240, 240, 240);
+}
