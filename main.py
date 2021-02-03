@@ -104,7 +104,3 @@ def main():
     @app.route('/')
     def index():
         return render_template('index.html', msgs=msgs)
-
-
-if __name__ == '__main__':
-    main()
