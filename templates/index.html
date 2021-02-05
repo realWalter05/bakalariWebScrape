@@ -2,15 +2,17 @@
 
 {% block body %}
 <article class="msgs">
-            {% autoescape false %}
+            {% autoescape true %}
                 {% for key in msgs%}
                     <ul class="key">
                         <h2>{{ key[0]["Jmeno"] }}</h2>
                         {% for msg in key %}
-                        <li class="msg">
+                        <li id="msg" class="msg" onclick="OpenMsg({{ msg }});">
                             <p>
-                                <b>{{ msg["Cas"] }}</b><br/>
+                                {% autoescape false %}
+                                <b>{{ msg["Cas"] }}</b><br/><br/>
                                 {{ msg["MessageText"] }}
+                                {% endautoescape %}
                             </p>
                         </li>
                         {% endfor %}
