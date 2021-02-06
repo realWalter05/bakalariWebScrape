@@ -1,8 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
-import json
 from flask import Flask, render_template
-from itertools import groupby
 
 
 app = Flask(__name__)
