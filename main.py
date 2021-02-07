@@ -2,7 +2,6 @@ from flask import Flask, render_template
 
 
 app = Flask(__name__)
-s = requests.session()
 
 def main():
     @app.route('/')
