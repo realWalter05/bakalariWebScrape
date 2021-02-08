@@ -78,7 +78,8 @@ def group_msgs(msgs):
 
     big_list = []
     for key, value in msgs:
-        if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" or key == "Mgr. Lucie Zemanová":
+        if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
+                or key == "Mgr. Lucie Zemanová":
             continue
         lis = []
         for k in value:
@@ -104,7 +105,7 @@ def main():
     @app.route('/')
     def index():
         return render_template('index.html', msgs=msgs)
-    app.run()
+    app.run(debug=True)
 
 
 if __name__ == '__main__':
