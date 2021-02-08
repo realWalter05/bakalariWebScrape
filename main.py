@@ -61,11 +61,13 @@ def get_msgs(ids_msg):
         msg = BeautifulSoup(response["MessageText"], 'html.parser')
         name = BeautifulSoup(response["Jmeno"], 'html.parser')
         time = BeautifulSoup(response["Cas"], 'html.parser')
+        files = response["Files"]
 
         msg_dict = {
             "MessageText": "" + str(msg),
             "Jmeno": "" + name.get_text(),
             "Cas": "" + time.get_text(),
+            "Files": files
         }
         msgs.append(msg_dict)
     return msgs
@@ -76,13 +78,11 @@ def group_msgs(msgs):
 
     big_list = []
     for key, value in msgs:
-        print("This is key: " + key)
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" or key == "Mgr. Lucie Zemanová":
             continue
         lis = []
         for k in value:
             lis.append(k)
-            print(k)
         big_list.append(lis)
     return big_list
 
