@@ -1,24 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<article class="msgs">
-            {% autoescape true %}
-                {% for key in msgs%}
-                    <ul class="key">
-                        <h2>{{ key[0]["Jmeno"] }}</h2>
-                        {% for msg in key %}
-                        <li id="msg" class="msg" onclick="OpenMsg({{ msg }});">
-                            <p>
-                                {% autoescape false %}
-                                <b>{{ msg["Cas"] }}</b><br/><br/>
-                                {{ msg["MessageText"] }}
-                                {% endautoescape %}
-                            </p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% endfor %}
-            {% endautoescape %}
-</article>
-
+    <script>
+        CheckCookies();
+    </script>
 {% endblock %}

@@ -5,8 +5,16 @@
         <title>Banakmis</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='banakmis_style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='msg.css')}}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
     </head>
     <body>
+        <header class="header">
+            <ul>
+                <li><img class="banakmis_logo" src="{{ url_for('static', filename='banakmis_logo.png')}}" alt="Banakmis logo"/></li>
+            </ul>
+        </header>
         {% block body %}{% endblock %}
     </body>
 </html>

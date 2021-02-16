@@ -79,7 +79,7 @@ def group_msgs(msgs):
     big_list = []
     for key, value in msgs:
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
-                or key == "Mgr. Lucie Zemanová":
+                or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová":
             continue
         lis = []
         for k in value:
@@ -89,23 +89,38 @@ def group_msgs(msgs):
 
 
 def main():
-    payload = {
-        "username": "zikav29z",
-        "password": "1c2zkH51",
-        "returnUrl": "/dashboard",
-        "login": "",
-    }
-    page_komens = send_payload("https://zsebenese.bakalari.cz/Login", "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
-                               payload)
-
-    msgs = get_msgs(get_idmsg(page_komens))
-
-    msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
-
     @app.route('/')
-    def index():
+    def set_up_msgs():
+        payload = {
+            "username": "zikav29z",
+            "password": "1c2zkH51",
+            "returnUrl": "/dashboard",
+            "login": "",
+        }
+        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
+                                   payload)
+
+        msgs = get_msgs(get_idmsg(page_komens))
+
+        msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+
         return render_template('index.html', msgs=msgs)
-    app.run(debug=True)
 
+    @app.route('/setup/')
+    def show_msgs():
+        payload = {
+            "username": "zikav29z",
+            "password": "1c2zkH51",
+            "returnUrl": "/dashboard",
+            "login": "",
+        }
+        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
+                                   payload)
 
+        msgs = get_msgs(get_idmsg(page_komens))
 
+        msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+
+        return render_template('msgs.html', msgs=msgs)

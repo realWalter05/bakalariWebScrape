@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<script>SetCookies({{ msg }});</script>
+<article class="msgs">
+            {% autoescape true %}
+                {% for key in msgs%}
+                    <div class="key_div">
+                        <h2 class="key_name">{{ key[0]["Jmeno"] }}</h2>
+                        <ul class="key">
+                            {% for msg in key %}
+                            <li id="msg" class="msg" onclick="OpenMsg({{ msg }});">
+                                <p>
+                                    {% autoescape false %}
+                                    <ul class="msg_header">
+                                        <li><i>{{ msg["Cas"] }}</i></li>
+                                        <li></li><i>{{ msg["Jmeno"] }}</i></li>
+                                    </ul>
+
+                                    {{ msg["MessageText"] }}
+                                    {% if msg["Files"] %}
+                                        <h4>Přílohy</h4>
+                                        {% for file in msg["Files"] %}
+                                            <a href="https://zsebenese.bakalari.cz/next/getFile.aspx?f={{ file['id'] }}" target="_blank">{{ file["name"] }}<br/></a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% endautoescape %}
+                                </p>
+                            </li>
+                            <hr class="line"/>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% endautoescape %}
+</article>
+
+{% endblock %}
