@@ -6,7 +6,7 @@
     position: relative;
     background: white;
     box-shadow: 1px 1px 8px rgba(230, 230, 230);
-    z-index: 1;
+    z-index: 6;
     display: flex;
     align-items: center;
 }
@@ -18,16 +18,35 @@
    margin: 0;
    padding: 0;
    align-items: center;
+   justify-content: space-between;
    position: relative;
 }
 
 .header ul li {
     height: 100%;
-    width: 100%;
+    width: auto;
     display: flex;
     align-items: center;
 }
 
 .banakmis_logo {
     height: 60px;
+}
+
+.reload_li {
+    padding: 20px;
+    cursor: pointer;
+}
+
+.reload_icon {
+    height: 27px;
+}
+
+.rotate {
+    -webkit-animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    0% { -webkit-transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(360deg);}
 }

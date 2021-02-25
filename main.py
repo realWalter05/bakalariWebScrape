@@ -1,9 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from itertools import groupby
-
 
 app = Flask(__name__)
 s = requests.session()
@@ -62,12 +61,14 @@ def get_msgs(ids_msg):
         name = BeautifulSoup(response["Jmeno"], 'html.parser')
         time = BeautifulSoup(response["Cas"], 'html.parser')
         files = response["Files"]
+        idmsg = response["Id"]
 
         msg_dict = {
             "MessageText": "" + str(msg),
             "Jmeno": "" + name.get_text(),
             "Cas": "" + time.get_text(),
-            "Files": files
+            "Files": files,
+            "idmsg": idmsg
         }
         msgs.append(msg_dict)
     return msgs
@@ -89,38 +90,49 @@ def group_msgs(msgs):
 
 
 def main():
-    @app.route('/')
-    def set_up_msgs():
-        payload = {
-            "username": "zikav29z",
-            "password": "1c2zkH51",
-            "returnUrl": "/dashboard",
-            "login": "",
-        }
-        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
-                                   payload)
+    @app.route('/', methods=["GET", "POST"])
+    def index():
+        return render_template('index.html')
 
-        msgs = get_msgs(get_idmsg(page_komens))
+    @app.route('/get_msgs/', methods=["GET", "POST"])
+    def get_new_msgs():
+        old_idmsgs = request.args.get('msgs')
 
-        msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+        # We're here from index to get a new msgs
+        if old_idmsgs:
+            print("there are data")
+            payload = {
+                "username": "zikav29z",
+                "password": "1c2zkH51",
+                "returnUrl": "/dashboard",
+                "login": "",
+            }
+            page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                       "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
+                                       payload)
 
-        return render_template('index.html', msgs=msgs)
+            idmsgs = get_idmsg(page_komens)
+            if idmsgs == old_idmsgs:
+                return render_template('index.html', status="Žádné nové zprávy")
+            else:
+                msgs = get_msgs(idmsgs)
+                msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
 
-    @app.route('/setup/')
-    def show_msgs():
-        payload = {
-            "username": "zikav29z",
-            "password": "1c2zkH51",
-            "returnUrl": "/dashboard",
-            "login": "",
-        }
-        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
-                                   payload)
+                return render_template('index.html', msgs=msgs)
+        # We're here from index to setup first msgs
+        else:
+            print("There are no msgs yet")
+            payload = {
+                "username": "zikav29z",
+                "password": "1c2zkH51",
+                "returnUrl": "/dashboard",
+                "login": "",
+            }
+            page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                       "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
+                                       payload)
 
-        msgs = get_msgs(get_idmsg(page_komens))
+            msgs = get_msgs(get_idmsg(page_komens))
+            msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
 
-        msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
-
-        return render_template('msgs.html', msgs=msgs)
+            return render_template('index.html', msgs=msgs)
