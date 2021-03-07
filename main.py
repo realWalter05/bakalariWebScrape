@@ -20,8 +20,7 @@ def send_payload(from_url, to_url, data_payload):
 def get_idmsg(url):
     bs = BeautifulSoup(url.content, 'html.parser')
 
-    msgs_table = bs.findAll(attrs="needsclick link message_list_table_item message_list_table_read_ano sender_U "
-                                  "sender_U_hover message_list_table_repressed_ne")
+    msgs_table = bs.findAll(attrs="message_list_table_item")
     ids_msg = []
     for msg in msgs_table:
         ids_msg.append(msg['data-idmsg'])
@@ -77,15 +76,29 @@ def get_msgs(ids_msg):
 def group_msgs(msgs):
     msgs = groupby(msgs, key=lambda k: k['Jmeno'])
 
+    sachova_index = 0
+    headmastership_index = 0
     big_list = []
+    index = 0
     for key, value in msgs:
+        print("Index: " + str(index))
+        print("Key: " + key)
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
-                or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová":
-            continue
+                or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová" \
+                or key == "Mgr. Josef Beniska" or key == "system message":
+           continue
+        if key == "Mgr. Jaroslava Šáchová":
+            sachova_index = index
+        if key == "headmastership":
+            headmastership_index = index
         lis = []
         for k in value:
             lis.append(k)
         big_list.append(lis)
+        index += 1
+    big_list[sachova_index].extend(big_list[headmastership_index])
+    big_list.remove(big_list[headmastership_index])
+
     return big_list
 
 

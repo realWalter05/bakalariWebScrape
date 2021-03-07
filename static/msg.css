@@ -20,10 +20,10 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
-    height: 86vh;
-    width: 97vw;
+    height: 84vh;
+    width: 95vw;
     position: relative;
-    left: 2.5vw;
+    left: 3.5vw;
     top: 2.5vh;
 }
 
@@ -111,7 +111,8 @@ body {
     overflow: auto;
     box-shadow: 5px 5px 8px -1px rgba(0, 0, 0, .3);
     border-radius: 0 5px 5px 5px;
-    height: 50vh;
+    max-height: 50vh;
+    height: auto;
     padding: 15px;
     -webkit-transition: all, 2s, ease-in;
     left: 20vw;
@@ -138,4 +139,14 @@ body {
     width: 30px;
     transform: rotate(180deg);
     cursor: pointer;
+}
+
+.status_icon {
+    height: 20px;
+    cursor: pointer;
+}
+
+.status_icon:hover {
+    transform: scale(1.08);
+    transition: ease-in-out .5s;
 }

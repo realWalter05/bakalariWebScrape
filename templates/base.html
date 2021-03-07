@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <script type="text/javascript" src="/static/main.js"></script>
@@ -10,10 +9,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body class="body">
         <header class="header">
             <ul>
-                <li><img class="banakmis_logo" src="{{ url_for('static', filename='img/banakmis_logo.png')}}" alt="Banakmis logo"/></li>
+                <li><a href="http://127.0.0.1:5000/"><img class="banakmis_logo" src="{{ url_for('static', filename='img/banakmis_logo.png')}}" alt="Banakmis logo"/></a></li>
                 <li class="reload_li" onclick="UpdateMsgs();">
                     <img class="reload_icon" src="{{ url_for('static', filename='img/reload.png')}}" alt="Reload"/>
                     {% if status %}
