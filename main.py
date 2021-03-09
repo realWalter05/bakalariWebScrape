@@ -96,6 +96,7 @@ def group_msgs(msgs):
             lis.append(k)
         big_list.append(lis)
         index += 1
+    # Merging Radr a Sachova
     big_list[sachova_index].extend(big_list[headmastership_index])
     big_list.remove(big_list[headmastership_index])
 
@@ -103,7 +104,7 @@ def group_msgs(msgs):
 
 
 def main():
-    @app.route('/', methods=["GET", "POST"])
+    @app.route('/')
     def index():
         return render_template('index.html')
 

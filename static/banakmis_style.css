@@ -71,7 +71,7 @@
 }
 
 .blur {
-    transition: ease 500ms;
+    transition: ease 1s;
     filter: blur(2px);
     -webkit-filter: blur(2px);
 }

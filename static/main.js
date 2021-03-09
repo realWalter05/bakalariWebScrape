@@ -112,9 +112,27 @@ function LoadPageByJs() {
         var keyDiv = document.createElement("div");
         keyDiv.setAttribute("class", "key_div")
 
+        // Adding Teams links to teachers
+        var a_teams_link = document.createElement("a");
+        var link_teams = {
+            "Mgr. Alice Hnyková": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:9d21846ad6e646d1b828ea2a57d88584@thread.tacv2&ctx=channel",
+            "Mgr. Barbara Uhrová": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:46fc71c24865477a8335d91a7d872f89@thread.tacv2&ctx=channel&rootfolder=%252Fsites%252F9.BProdopis%252FSdilene%2520dokumenty%252FGeneral",
+            "Mgr. Dagmar Doleželová": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:24ddadb3353d4306bbd9a9519a7a6719@thread.tacv2&ctx=channel",
+            "Mgr. Jaroslava Šáchová": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:24f4997f55284424936a2c40541ddedd@thread.tacv2&ctx=channel",
+            "Mgr. Leona Chalupová": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:1230b69eaf5e408b8ce207122be17157@thread.tacv2&ctx=channel",
+            "Mgr. Václav Jára": "https://teams.microsoft.com/_#/school/conversations/Obecn%C3%A9?threadId=19:95f66352ff1e4658a8c673db08f9ec11@thread.tacv2&ctx=channel",
+            "Mgr. Zdeněk Bezpalec": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:d73679791a2b4831bd12ff73d98b5475@thread.tacv2&ctx=channel",
+            "PaedDr. Lenka Halamová": "https://teams.microsoft.com/_#/school/files/Obecn%C3%A9?threadId=19:d99d98ac693f4297b00e3d7e52a075ab@thread.tacv2&ctx=channel"
+        };
+        a_teams_link.setAttribute("href", link_teams[key[0]["Jmeno"]]);
+        a_teams_link.setAttribute("target", "_blank");
+        a_teams_link.setAttribute("class", "a_key");
+
         var h2 = document.createElement("h2");
         h2.setAttribute("class", "key_name");
         h2.innerHTML = key[0]["Jmeno"];
+
+        a_teams_link.appendChild(h2);
 
         var keyUl = document.createElement("ul");
         keyUl.setAttribute("class", "key")
@@ -153,7 +171,7 @@ function LoadPageByJs() {
             keyUl.appendChild(line);
         });
 
-        keyDiv.appendChild(h2);
+        keyDiv.appendChild(a_teams_link);
         keyDiv.appendChild(keyUl);
         divMsgs.appendChild(keyDiv);
     });
