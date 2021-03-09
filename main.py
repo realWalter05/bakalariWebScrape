@@ -103,50 +103,49 @@ def group_msgs(msgs):
     return big_list
 
 
-def main():
-    @app.route('/')
-    def index():
-        return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    @app.route('/get_msgs/', methods=["GET", "POST"])
-    def get_new_msgs():
-        old_idmsgs = request.args.get('msgs')
+@app.route('/get_msgs/', methods=["GET", "POST"])
+def get_new_msgs():
+    old_idmsgs = request.args.get('msgs')
 
-        # We're here from index to get a new msgs
-        if old_idmsgs:
-            print("there are data")
-            payload = {
-                "username": "zikav29z",
-                "password": "1c2zkH51",
-                "returnUrl": "/dashboard",
-                "login": "",
-            }
-            page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                       "https://zsebenese.bakalari.cz/next/komens.aspx?s=den",
-                                       payload)
+    # We're here from index to get a new msgs
+    if old_idmsgs:
+        print("there are data")
+        payload = {
+            "username": "zikav29z",
+            "password": "1c2zkH51",
+            "returnUrl": "/dashboard",
+            "login": "",
+        }
+        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=den",
+                                   payload)
 
-            idmsgs = get_idmsg(page_komens)
-            if idmsgs == old_idmsgs:
-                return render_template('index.html', status="Žádné nové zprávy")
-            else:
-                msgs = get_msgs(idmsgs)
-                msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
-
-                return render_template('index.html', msgs=msgs)
-        # We're here from index to setup first msgs
+        idmsgs = get_idmsg(page_komens)
+        if idmsgs == old_idmsgs:
+            return render_template('index.html', status="Žádné nové zprávy")
         else:
-            print("There are no msgs yet")
-            payload = {
-                "username": "zikav29z",
-                "password": "1c2zkH51",
-                "returnUrl": "/dashboard",
-                "login": "",
-            }
-            page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                       "https://zsebenese.bakalari.cz/next/komens.aspx?s=den",
-                                       payload)
-
-            msgs = get_msgs(get_idmsg(page_komens))
+            msgs = get_msgs(idmsgs)
             msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
 
             return render_template('index.html', msgs=msgs)
+    # We're here from index to setup first msgs
+    else:
+        print("There are no msgs yet")
+        payload = {
+            "username": "zikav29z",
+            "password": "1c2zkH51",
+            "returnUrl": "/dashboard",
+            "login": "",
+        }
+        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=den",
+                                   payload)
+
+        msgs = get_msgs(get_idmsg(page_komens))
+        msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+
+        return render_template('index.html', msgs=msgs)
