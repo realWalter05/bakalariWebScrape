@@ -28,7 +28,7 @@ body {
 }
 
 .key_div {
-    width: 21vw;
+    padding: 0 2vw 0 0;
     height: 42vh;
     position: relative;
 }
@@ -104,6 +104,24 @@ body {
 .line {
     padding: 0;
     margin: 0;
+}
+
+@media only screen and (max-width: 1500px) {
+    .msgs {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .msgs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .msgs {
+        grid-template-columns: 1fr;
+    }
 }
 
 .msg_box {
