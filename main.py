@@ -121,7 +121,7 @@ def get_new_msgs():
             "login": "",
         }
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=den",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
                                    payload)
 
         idmsgs = get_idmsg(page_komens)
@@ -142,7 +142,7 @@ def get_new_msgs():
             "login": "",
         }
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=den",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
                                    payload)
 
         msgs = get_msgs(get_idmsg(page_komens))
