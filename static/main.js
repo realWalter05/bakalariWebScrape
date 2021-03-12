@@ -94,6 +94,7 @@ function CloseMsg() {
 function CheckLocalStorage() {
     if(!localStorage.getItem("msgs") == "") {
         LoadPageByJs();
+        UpdateMsgs();
     } else {
         window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
     }

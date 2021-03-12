@@ -81,8 +81,6 @@ def group_msgs(msgs):
     big_list = []
     index = 0
     for key, value in msgs:
-        print("Index: " + str(index))
-        print("Key: " + key)
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
                 or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová" \
                 or key == "Mgr. Josef Beniska" or key == "system message":
