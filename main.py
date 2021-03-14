@@ -28,6 +28,22 @@ def get_idmsg(url):
     return ids_msg
 
 
+def get_new_idmsgs(url, old_idmsgs):
+    bs = BeautifulSoup(url.content, 'html.parser')
+
+    msgs_table = bs.findAll(attrs="message_list_table_item")
+    ids_msg = []
+    for msg in msgs_table:
+       if any(dict["idmsg"] == msg['data-idmsg'] for key in old_idmsgs for dict in key):
+            print("it's therere")
+            break
+       else:
+           print("its not thereerere")
+           ids_msg.append(msg['data-idmsg'])
+
+    return ids_msg
+
+
 def get_msgs(ids_msg):
     msgs = []
     for idmsg in ids_msg:
@@ -81,6 +97,7 @@ def group_msgs(msgs):
     big_list = []
     index = 0
     for key, value in msgs:
+        print(key)
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
                 or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová" \
                 or key == "Mgr. Josef Beniska" or key == "system message":
@@ -95,9 +112,9 @@ def group_msgs(msgs):
         big_list.append(lis)
         index += 1
     # Merging Radr a Sachova
-    big_list[sachova_index].extend(big_list[headmastership_index])
-    big_list.remove(big_list[headmastership_index])
-
+    if big_list[sachova_index] and big_list[headmastership_index]:
+        big_list[sachova_index].extend(big_list[headmastership_index])
+        big_list.remove(big_list[headmastership_index])
     return big_list
 
 
@@ -105,12 +122,14 @@ def group_msgs(msgs):
 def index():
     return render_template('index.html')
 
-@app.route('/get_msgs/', methods=["GET", "POST"])
+
+@app.route('/get_msgs/', methods=["GET","POST"])
 def get_new_msgs():
-    old_idmsgs = request.args.get('msgs')
+    old_idmsgs = request.form.get('msgs')
 
     # We're here from index to get a new msgs
     if old_idmsgs:
+        old_idmsgs = json.loads(request.form.get('msgs'))
         print("there are data")
         payload = {
             "username": "zikav29z",
@@ -122,14 +141,29 @@ def get_new_msgs():
                                    "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
                                    payload)
 
-        idmsgs = get_idmsg(page_komens)
-        if idmsgs == old_idmsgs:
+        idmsgs = get_new_idmsgs(page_komens, old_idmsgs)
+        if not idmsgs:
             return render_template('index.html', status="Žádné nové zprávy")
         else:
+            print("else")
+            print(idmsgs)
             msgs = get_msgs(idmsgs)
-            msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+            if not len(msgs) == 1:
+                msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+            # Merging with old_idmsgs
 
-            return render_template('index.html', msgs=msgs)
+            print("before print")
+            print(msgs)
+            for msg in msgs:
+                for key in old_idmsgs:
+                    if msg["Jmeno"] == key[0]["Jmeno"]:
+                        print("it is same")
+                        key.append(msg)
+                    else:
+                        print("not same")
+
+            print("going out")
+            return render_template('index.html', msgs=old_idmsgs)
     # We're here from index to setup first msgs
     else:
         print("There are no msgs yet")

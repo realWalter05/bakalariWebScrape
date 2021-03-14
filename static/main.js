@@ -95,11 +95,14 @@ function CheckLocalStorage() {
     if(!localStorage.getItem("msgs") == "") {
         LoadPageByJs();
     } else {
+        console.log("relocating");
         window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
+    //    window.location.replace("http://127.0.0.1:5000/get_msgs/");
     }
 }
 
 function SetLocalStorage(msgs) {
+    console.log("setting local storage");
     localStorage.setItem("msgs", JSON.stringify(msgs));
 }
 
@@ -207,13 +210,14 @@ function InStorage(msg) {
 }
 
 function UpdateMsgs() {
-    var msgs = JSON.parse(localStorage.getItem("msgs"));
+    var msgs = localStorage.getItem("msgs");
 
     var reload_icon = document.querySelector(".reload_icon");
     reload_icon.classList.add("rotate");
 
     var form = document.createElement("form");
     form.setAttribute("action", "https://banakmis.herokuapp.com/get_msgs/");
+    // form.setAttribute("action", "http://127.0.0.1:5000/get_msgs/");
     form.setAttribute("method", "POST");
 
     var input = document.createElement("input");
