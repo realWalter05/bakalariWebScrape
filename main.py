@@ -143,7 +143,7 @@ def get_new_msgs():
 
         idmsgs = get_new_idmsgs(page_komens, old_idmsgs)
         if not idmsgs:
-            return render_template('index.html', status="Žádné nové zprávy")
+            return render_template('index.html', status="  Žádné nové zprávy")
         else:
             print("else")
             print(idmsgs)
