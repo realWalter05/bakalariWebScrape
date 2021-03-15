@@ -148,17 +148,15 @@ def get_new_msgs():
             print("else")
             print(idmsgs)
             msgs = get_msgs(idmsgs)
-            if not len(msgs) == 1:
-                msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
             # Merging with old_idmsgs
 
             print("before print")
             print(msgs)
-            for msg in msgs:
+            for msg in msgs[::-1]:
                 for key in old_idmsgs:
                     if msg["Jmeno"] == key[0]["Jmeno"]:
                         print("it is same")
-                        key.append(msg)
+                        key.insert(0, msg)
                     else:
                         print("not same")
 
