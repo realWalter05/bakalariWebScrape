@@ -10,5 +10,8 @@
 </article>
 <script>
     CheckLocalStorage();
+    {% if not status %}
+        UpdateMsgs();
+    {% endif %}
 </script>
 {% endblock %}
