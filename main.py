@@ -143,7 +143,7 @@ def get_new_msgs():
 
         idmsgs = get_new_idmsgs(page_komens, old_idmsgs)
         if not idmsgs:
-            return render_template('index.html', status="  Žádné nové zprávy")
+            return render_template('index.html', status="Žádné nové zprávy :O")
         else:
             print("else")
             print(idmsgs)
@@ -161,7 +161,7 @@ def get_new_msgs():
                         print("not same")
 
             print("going out")
-            return render_template('index.html', msgs=old_idmsgs)
+            return render_template('index.html', msgs=old_idmsgs, status="Aktualizováno :ú")
     # We're here from index to setup first msgs
     else:
         print("There are no msgs yet")
