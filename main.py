@@ -32,14 +32,24 @@ def get_new_idmsgs(url, old_idmsgs):
     bs = BeautifulSoup(url.content, 'html.parser')
 
     msgs_table = bs.findAll(attrs="message_list_table_item")
+
     ids_msg = []
     for msg in msgs_table:
-       if any(dict["idmsg"] == msg['data-idmsg'] for key in old_idmsgs for dict in key):
-            print("it's therere")
-            break
-       else:
-           print("its not thereerere")
-           ids_msg.append(msg['data-idmsg'])
+        msg_header = msg.find(attrs="message_list_header")
+        msg_name = msg_header.findAll("div")[1].text
+        print(msg_name)
+        if msg_name == "Mgr. Andrea Slabá" or msg_name == "Mgr. Jan Koutník" or msg_name == "Mgr. Jaroslav Chval" \
+                or msg_name == "Mgr. Lucie Zemanová" or msg_name == "Mgr. Aneta Marková" or msg_name == "Mgr. Iva Ťupová" \
+                or msg_name == "Mgr. Josef Beniska" or msg_name == "system message":
+            print("Skipping, cause theyre not important")
+            continue
+
+        if any(dict["idmsg"] == msg['data-idmsg'] for key in old_idmsgs for dict in key):
+             print("it's therere")
+             break
+        else:
+            print("its not thereerere")
+            ids_msg.append(msg['data-idmsg'])
 
     return ids_msg
 
@@ -143,25 +153,18 @@ def get_new_msgs():
 
         idmsgs = get_new_idmsgs(page_komens, old_idmsgs)
         if not idmsgs:
-            return render_template('index.html', status="Žádné nové zprávy :O")
+            return render_template('index.html', status=":O")
         else:
-            print("else")
-            print(idmsgs)
             msgs = get_msgs(idmsgs)
             # Merging with old_idmsgs
 
-            print("before print")
-            print(msgs)
             for msg in msgs[::-1]:
                 for key in old_idmsgs:
                     if msg["Jmeno"] == key[0]["Jmeno"]:
-                        print("it is same")
                         key.insert(0, msg)
-                    else:
-                        print("not same")
 
             print("going out")
-            return render_template('index.html', msgs=old_idmsgs, status="Aktualizováno :ú")
+            return render_template('index.html', msgs=old_idmsgs, status=":ú")
     # We're here from index to setup first msgs
     else:
         print("There are no msgs yet")

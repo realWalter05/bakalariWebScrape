@@ -3,7 +3,7 @@
 {% block body %}
 {% if msgs %}
     {% autoescape false %}
-        <script>SetLocalStorage({{ msgs }});  window.location.replace("https://banakmis.herokuapp.com/");</script>
+        <script>SetLocalStorage({{ msgs }});  window.location.replace("http://127.0.0.1:5000/");</script>
     {% endautoescape %}
 {% endif %}
 <article class="msgs">

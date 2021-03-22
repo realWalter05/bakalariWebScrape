@@ -96,8 +96,8 @@ function CheckLocalStorage() {
         LoadPageByJs();
     } else {
         console.log("relocating");
-        window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
-     // window.location.replace("http://127.0.0.1:5000/get_msgs/");
+      window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
+ //   window.location.replace("http://127.0.0.1:5000/get_msgs/");
     }
 }
 
