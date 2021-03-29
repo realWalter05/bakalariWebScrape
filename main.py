@@ -24,7 +24,7 @@ def get_idmsg(url):
     ids_msg = []
     for msg in msgs_table:
         ids_msg.append(msg['data-idmsg'])
-
+    yy
     return ids_msg
 
 
@@ -51,7 +51,7 @@ def get_new_idmsgs(url, old_idmsgs):
             print("its not thereerere")
             print(msg['data-idmsg'])
             ids_msg.append(msg['data-idmsg'])
-
+    print(ids_msg)
     return ids_msg
 
 
