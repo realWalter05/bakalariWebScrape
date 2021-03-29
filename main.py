@@ -49,6 +49,7 @@ def get_new_idmsgs(url, old_idmsgs):
              break
         else:
             print("its not thereerere")
+            print(msg['data-idmsg'])
             ids_msg.append(msg['data-idmsg'])
 
     return ids_msg
