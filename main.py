@@ -51,7 +51,7 @@ def get_new_idmsgs(url, old_idmsgs):
             print("its not thereerere")
             print(msg['data-idmsg'])
             ids_msg.append(msg['data-idmsg'])
-    print(ids_msg)
+
     return ids_msg
 
 
@@ -163,7 +163,6 @@ def get_new_msgs():
                 for key in old_idmsgs:
                     if msg["Jmeno"] == key[0]["Jmeno"]:
                         key.insert(0, msg)
-
             print("going out")
             return render_template('index.html', msgs=old_idmsgs, status=":ú")
     # We're here from index to setup first msgs
