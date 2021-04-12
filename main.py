@@ -103,7 +103,6 @@ def get_msgs(ids_msg):
 
 def group_msgs(msgs):
     msgs = groupby(msgs, key=lambda k: k['Jmeno'])
-
     sachova_index = 0
     headmastership_index = 0
     big_list = []
@@ -176,7 +175,7 @@ def get_new_msgs():
             "login": "",
         }
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
                                    payload)
 
         msgs = get_msgs(get_idmsg(page_komens))

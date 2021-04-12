@@ -21,7 +21,8 @@ function OpenMsg(msg) {
         if(msg["Files"]) {
             msg["Files"].forEach(function(file) {
                 var fileA = document.createElement("a");
-                fileA.setAttribute("href", "https://zsebenese.bakalari.cz/next/getFile.aspx?f=" + file["id"]);
+                console.log(file);
+                fileA.setAttribute("href", "https://zsebenese.bakalari.cz/next/getFile.aspx?f=" + file['id']);
                 fileA.setAttribute("target", "_blank");
                 fileA.innerHTML = file["name"] + "<br/>";
 
@@ -64,7 +65,8 @@ function OpenMsg(msg) {
         if(msg["Files"]) {
             msg["Files"].forEach(function(file) {
                 var fileA = document.createElement("a");
-                fileA.setAttribute("href", "https://zsebenese.bakalari.cz/next/getFile.aspx?f=" + file["id"]);
+                console.log(file);
+                fileA.setAttribute("href", "https://zsebenese.bakalari.cz/next/getFile.aspx?f=" + file['id']);
                 fileA.setAttribute("target", "_blank");
                 fileA.innerHTML = file["name"] + "<br/>";
 
@@ -96,8 +98,8 @@ function CheckLocalStorage() {
         LoadPageByJs();
     } else {
         console.log("relocating");
-      window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
- //   window.location.replace("http://127.0.0.1:5000/get_msgs/");
+ //     window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
+    window.location.replace("http://127.0.0.1:5000/get_msgs/");
     }
 }
 
@@ -216,8 +218,8 @@ function UpdateMsgs() {
     reload_icon.classList.add("rotate");
 
     var form = document.createElement("form");
-    form.setAttribute("action", "https://banakmis.herokuapp.com/get_msgs/");
- // form.setAttribute("action", "http://127.0.0.1:5000/get_msgs/");
+ //   form.setAttribute("action", "https://banakmis.herokuapp.com/get_msgs/");
+  form.setAttribute("action", "http://127.0.0.1:5000/get_msgs/");
     form.setAttribute("method", "POST");
 
     var input = document.createElement("input");
