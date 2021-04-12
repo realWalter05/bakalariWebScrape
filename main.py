@@ -24,7 +24,7 @@ def get_idmsg(url):
     ids_msg = []
     for msg in msgs_table:
         ids_msg.append(msg['data-idmsg'])
-    yy
+
     return ids_msg
 
 
