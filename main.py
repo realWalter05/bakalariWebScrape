@@ -87,6 +87,7 @@ def get_msgs(ids_msg):
         name = BeautifulSoup(response["Jmeno"], 'html.parser')
         time = BeautifulSoup(response["Cas"], 'html.parser')
         files = response["Files"]
+        print(files)
         idmsg = response["Id"]
 
         msg_dict = {
