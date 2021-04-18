@@ -87,7 +87,6 @@ def get_msgs(ids_msg):
         name = BeautifulSoup(response["Jmeno"], 'html.parser')
         time = BeautifulSoup(response["Cas"], 'html.parser')
         files = response["Files"]
-        print(files)
         idmsg = response["Id"]
 
         msg_dict = {
@@ -134,7 +133,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/get_msgs/', methods=["GET","POST"])
+@app.route('/get_msgs/', methods=["GET", "POST"])
 def get_new_msgs():
     old_idmsgs = request.form.get('msgs')
 
@@ -163,7 +162,7 @@ def get_new_msgs():
                 for key in old_idmsgs:
                     if msg["Jmeno"] == key[0]["Jmeno"]:
                         key.insert(0, msg)
-            print("going out")
+            print(msgs)
             return render_template('index.html', msgs=old_idmsgs, status=":ú")
     # We're here from index to setup first msgs
     else:
@@ -180,5 +179,6 @@ def get_new_msgs():
 
         msgs = get_msgs(get_idmsg(page_komens))
         msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+        print(msgs)
 
         return render_template('index.html', msgs=msgs)
