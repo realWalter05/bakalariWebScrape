@@ -108,10 +108,7 @@ def group_msgs(msgs):
     index = 0
     for key, value in msgs:
         print(key)
-        if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
-                or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová" \
-                or key == "Mgr. Josef Beniska" or key == "system message":
-           continue
+
         if key == "Mgr. Jaroslava Šáchová":
             sachova_index = index
         if key == "headmastership":

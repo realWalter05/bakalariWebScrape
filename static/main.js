@@ -111,6 +111,7 @@ function LoadPageByJs() {
     var msgs = JSON.parse(localStorage.getItem("msgs"));
     var divMsgs = document.querySelector(".msgs")
 
+    console.log(msgs);
     msgs.forEach(function(key) {
         var keyDiv = document.createElement("div");
         keyDiv.setAttribute("class", "key_div")
