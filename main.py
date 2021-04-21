@@ -128,6 +128,7 @@ def group_msgs(msgs):
         print("index updated", index)
     # Merging Radr a Sachova
     if big_list[sachova_index] and big_list[headmastership_index]:
+        print("There is sachova", sachova_index, "and lradlr", headmastership_index)
         big_list[sachova_index].extend(big_list[headmastership_index])
         big_list.remove(big_list[headmastership_index])
     return big_list
