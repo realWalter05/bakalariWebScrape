@@ -112,11 +112,13 @@ def group_msgs(msgs):
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
                 or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová" \
                 or key == "Mgr. Josef Beniska" or key == "system message":
-            print("index not updating: ")
+            print("index not updating: ", index)
             continue
         if key == "Mgr. Jaroslava Šáchová":
+            print("This sachova", index)
             sachova_index = index
         if key == "headmastership":
+            print("This lradlr", index)
             headmastership_index = index
         lis = []
         for k in value:
