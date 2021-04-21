@@ -102,8 +102,8 @@ def get_msgs(ids_msg):
 
 def group_msgs(msgs):
     msgs = groupby(msgs, key=lambda k: k['Jmeno'])
-    sachova_index = 0
-    headmastership_index = 0
+    sachova_index = 9999
+    headmastership_index = 9999
     big_list = []
     index = 0
     for key, value in msgs:
@@ -127,7 +127,7 @@ def group_msgs(msgs):
         index += 1
         print("index updated", index)
     # Merging Radr a Sachova
-    if big_list[sachova_index] and big_list[headmastership_index]:
+    if not big_list[sachova_index] == 9999 and not big_list[headmastership_index] == 9999:
         print("There is sachova", sachova_index, "and lradlr", headmastership_index)
         big_list[sachova_index].extend(big_list[headmastership_index])
         big_list.remove(big_list[headmastership_index])
