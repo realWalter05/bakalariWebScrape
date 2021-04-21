@@ -102,6 +102,7 @@ def get_msgs(ids_msg):
 
 def group_msgs(msgs):
     msgs = groupby(msgs, key=lambda k: k['Jmeno'])
+    print("grouping msgs")
     sachova_index = 9999
     headmastership_index = 9999
     big_list = []
@@ -127,7 +128,7 @@ def group_msgs(msgs):
         index += 1
         print("index updated", index)
     # Merging Radr a Sachova
-    if not big_list[sachova_index] == 9999 and not big_list[headmastership_index] == 9999:
+    if not sachova_index == 9999 and not headmastership_index == 9999:
         print("There is sachova", sachova_index, "and lradlr", headmastership_index)
         big_list[sachova_index].extend(big_list[headmastership_index])
         big_list.remove(big_list[headmastership_index])
@@ -168,7 +169,6 @@ def get_new_msgs():
                 for key in old_idmsgs:
                     if msg["Jmeno"] == key[0]["Jmeno"]:
                         key.insert(0, msg)
-            print(msgs)
             return render_template('index.html', msgs=old_idmsgs, status=":ú")
     # We're here from index to setup first msgs
     else:
@@ -185,7 +185,5 @@ def get_new_msgs():
 
         msgs = get_msgs(get_idmsg(page_komens))
         msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
-        print("Returing the msgs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print(msgs)
 
         return render_template('index.html', msgs=msgs)

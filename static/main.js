@@ -111,7 +111,6 @@ function LoadPageByJs() {
     var msgs = JSON.parse(localStorage.getItem("msgs"));
     var divMsgs = document.querySelector(".msgs")
 
-    console.log(msgs);
     msgs.forEach(function(key) {
         var keyDiv = document.createElement("div");
         keyDiv.setAttribute("class", "key_div")
@@ -233,8 +232,6 @@ function UpdateMsgs() {
 }
 
 function SetMsgStatus(msgid, status) {
-    console.log(msgid);
-
     var currentMsg = document.querySelector("[idmsg='" + msgid + "']");
     var status_img = "";
     switch(status){
