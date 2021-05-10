@@ -40,7 +40,7 @@ def get_new_idmsgs(url, old_idmsgs):
         print(msg_name)
         if msg_name == "Mgr. Andrea Slabá" or msg_name == "Mgr. Jan Koutník" or msg_name == "Mgr. Jaroslav Chval" \
                 or msg_name == "Mgr. Lucie Zemanová" or msg_name == "Mgr. Aneta Marková" or msg_name == "Mgr. Iva Ťupová" \
-                or msg_name == "Mgr. Josef Beniska" or msg_name == "system message":
+                or msg_name == "Mgr. Josef Beniska" or msg_name == "system message" or msg_name == "Mgr. Veronika Pauknerová":
             print("Skipping, cause theyre not important")
             continue
 
