@@ -180,7 +180,7 @@ def get_new_msgs():
             "login": "",
         }
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=rok",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=2polo",
                                    payload)
 
         msgs = get_msgs(get_idmsg(page_komens))
