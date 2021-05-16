@@ -164,7 +164,7 @@ def get_new_msgs():
     else:
         number = request.args.get("number")
         print(str(number))
-        start_number = 3
+        start_number = 2
         if number:
             start_number = int(number)
 
