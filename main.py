@@ -181,6 +181,7 @@ def get_new_msgs():
             start_number = number
 
         print("There are no msgs yet")
+        print("Start number: " + start_number)
         payload = {
             "username": "zikav29z",
             "password": "1c2zkH51",
