@@ -39,19 +39,14 @@ def get_new_idmsgs(url, old_idmsgs):
     for msg in msgs_table:
         msg_header = msg.find(attrs="message_list_header")
         msg_name = msg_header.findAll("div")[1].text
-        print(msg_name)
         if msg_name == "Mgr. Andrea Slabá" or msg_name == "Mgr. Jan Koutník" or msg_name == "Mgr. Jaroslav Chval" \
                 or msg_name == "Mgr. Lucie Zemanová" or msg_name == "Mgr. Aneta Marková" or msg_name == "Mgr. Iva Ťupová" \
                 or msg_name == "Mgr. Josef Beniska" or msg_name == "system message" or msg_name == "Mgr. Veronika Pauknerová":
-            print("Skipping, cause theyre not important")
             continue
 
         if any(dict["idmsg"] == msg['data-idmsg'] for key in old_idmsgs for dict in key):
-             print("it's therere")
              break
         else:
-            print("its not thereerere")
-            print(msg['data-idmsg'])
             ids_msg.append(msg['data-idmsg'])
 
     return ids_msg
@@ -104,34 +99,26 @@ def get_msgs(ids_msg):
 
 def group_msgs(msgs):
     msgs = groupby(msgs, key=lambda k: k['Jmeno'])
-    print("grouping msgs")
     sachova_index = 9999
     headmastership_index = 9999
     big_list = []
     index = 0
     for key, value in msgs:
-        print(key)
-        print(index)
         if key == "Mgr. Andrea Slabá" or key == "Mgr. Jan Koutník" or key == "Mgr. Jaroslav Chval" \
                 or key == "Mgr. Lucie Zemanová" or key == "Mgr. Aneta Marková" or key == "Mgr. Iva Ťupová" \
                 or key == "Mgr. Josef Beniska" or key == "system message" or key == "Mgr. Veronika Pauknerová":
-            print("index not updating: ", index)
             continue
         if key == "Mgr. Jaroslava Šáchová":
-            print("This sachova", index)
             sachova_index = index
         if key == "headmastership":
-            print("This lradlr", index)
             headmastership_index = index
         lis = []
         for k in value:
             lis.append(k)
         big_list.append(lis)
         index += 1
-        print("index updated", index)
     # Merging Radr a Sachova
     if not sachova_index == 9999 and not headmastership_index == 9999:
-        print("There is sachova", sachova_index, "and lradlr", headmastership_index)
         big_list[sachova_index].extend(big_list[headmastership_index])
         big_list.remove(big_list[headmastership_index])
     return big_list
@@ -175,13 +162,14 @@ def get_new_msgs():
             return render_template('index.html', msgs=old_idmsgs, status=":ú")
     # We're here from index to setup first msgs
     else:
-        number = request.form.get('start_number')
+        number = request.args.get("number")
+        print(str(number))
         start_number = 6
         if number:
-            start_number = number
+            start_number = int(number)
 
         print("There are no msgs yet")
-        print("Start number: " + start_number)
+        print(start_number)
         payload = {
             "username": "zikav29z",
             "password": "1c2zkH51",

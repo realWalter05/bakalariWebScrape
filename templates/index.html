@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="waiting-bar">
+    <div class="ball">Loading...</div>
+</div>
 {% if msgs %}
     {% autoescape false %}
         <script>SetLocalStorage({{ msgs }});</script>
@@ -8,7 +11,7 @@
            <script>window.location.replace("https://banakmis.herokuapp.com/");</script>
         {% endif %}
         {% if number %}
-            <script>SendStartNumber({{ number }}); window.location.replace("https://banakmis.herokuapp.com/get_msgs");</script>
+            <script>SendStartNumber({{ number }});</script>
         {% endif %}
     {% endautoescape %}
 {% endif %}
