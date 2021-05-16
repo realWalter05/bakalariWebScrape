@@ -183,7 +183,7 @@ function LoadPageByJs() {
 
 function SendStartNumber(number) {
  //   window.location.replace("http://127.0.0.1:5000/get_msgs?number="+number);
-    window.location.replace("https://banakmis.herokuapp.com/get_msgs/?number="+number);
+    window.location.replace("https://banakmis.herokuapp.com/get_msgs?number="+number);
 }
 
 function InStorage(msg) {
