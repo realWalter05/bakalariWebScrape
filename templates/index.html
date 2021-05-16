@@ -8,7 +8,7 @@
     {% autoescape false %}
         <script>SetLocalStorage({{ msgs }});</script>
         {% if done %}
-           <script>window.location.replace("https://banakmis.herokuapp.com/");</script>
+           <script>window.location.replace("https://banakmis.herokuapp.com");</script>
         {% endif %}
         {% if number %}
             <script>SendStartNumber({{ number }});</script>
