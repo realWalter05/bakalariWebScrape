@@ -97,7 +97,7 @@ function CheckLocalStorage() {
         LoadPageByJs();
     } else {
         console.log("relocating");
-        window.location.replace("https://banakmis.herokuapp.com/get_msgs/");
+        window.location.replace("https://banakmis.herokuapp.com/get_msgs");
   //  window.location.replace("http://127.0.0.1:5000/get_msgs/");
     }
 }
@@ -223,7 +223,7 @@ function UpdateMsgs() {
     reload_icon.classList.add("rotate");
 
     var form = document.createElement("form");
-    form.setAttribute("action", "https://banakmis.herokuapp.com/get_msgs/");
+    form.setAttribute("action", "https://banakmis.herokuapp.com/get_msgs");
 //  form.setAttribute("action", "http://127.0.0.1:5000/get_msgs/");
     form.setAttribute("method", "POST");
 
