@@ -180,6 +180,22 @@ function LoadPageByJs() {
     });
 }
 
+function SendStartNumber(number) {
+    var form = document.createElement("form");
+    form.setAttribute("action", "https://banakmis.herokuapp.com/get_msgs/");
+//  form.setAttribute("action", "http://127.0.0.1:5000/get_msgs/");
+    form.setAttribute("method", "POST");
+
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("name", "number");
+    input.setAttribute("value", number);
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+}
+
 function InStorage(msg) {
     var statuses = localStorage.getItem("statuses");
 
