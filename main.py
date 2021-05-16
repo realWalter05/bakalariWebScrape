@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import json
 from flask import Flask, render_template, request
 from itertools import groupby
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 app = Flask(__name__)
 s = requests.session()
@@ -148,6 +150,7 @@ def get_new_msgs():
     if old_idmsgs:
         old_idmsgs = json.loads(request.form.get('msgs'))
         print("there are data")
+        # FUJblahbjwoengpaiungjpfasodngmkoy
         payload = {
             "username": "zikav29z",
             "password": "1c2zkH51",
@@ -172,6 +175,11 @@ def get_new_msgs():
             return render_template('index.html', msgs=old_idmsgs, status=":ú")
     # We're here from index to setup first msgs
     else:
+        number = request.form.get('start_number')
+        start_number = 6
+        if number:
+            start_number = number
+
         print("There are no msgs yet")
         payload = {
             "username": "zikav29z",
@@ -179,12 +187,14 @@ def get_new_msgs():
             "returnUrl": "/dashboard",
             "login": "",
         }
-        
+
         # Getting msgs separately because request error h12
-        half_year_back = date.today() + relativedelta(months=-6)
+        half_year_back = date.today() + relativedelta(months=-number)
         start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
-        
+
         half_year_back_end = half_year_back + relativedelta(months=+1)
+        if number == 1:
+            half_year_back_end = date.today()
         end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
 
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
@@ -194,4 +204,7 @@ def get_new_msgs():
         msgs = get_msgs(get_idmsg(page_komens))
         msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
 
-        return render_template('index.html', msgs=msgs)
+        if number == 1:
+            return render_template('index.html', msgs=msgs, done="done")
+
+        return render_template('index.html', msgs=msgs, number=(number - 1))
