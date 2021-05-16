@@ -188,7 +188,7 @@ function SendStartNumber(number) {
 
     var input = document.createElement("input");
     input.setAttribute("type", "text");
-    input.setAttribute("name", "number");
+    input.setAttribute("name", "start_number");
     input.setAttribute("value", number);
 
     form.appendChild(input);
