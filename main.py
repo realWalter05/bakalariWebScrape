@@ -189,11 +189,11 @@ def get_new_msgs():
         }
 
         # Getting msgs separately because request error h12
-        half_year_back = date.today() + relativedelta(months=-number)
+        half_year_back = date.today() + relativedelta(months=-start_number)
         start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
 
         half_year_back_end = half_year_back + relativedelta(months=+1)
-        if number == 1:
+        if start_number == 1:
             half_year_back_end = date.today()
         end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
 
@@ -204,7 +204,7 @@ def get_new_msgs():
         msgs = get_msgs(get_idmsg(page_komens))
         msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
 
-        if number == 1:
+        if start_number == 1:
             return render_template('index.html', msgs=msgs, done="done")
 
-        return render_template('index.html', msgs=msgs, number=(number - 1))
+        return render_template('index.html', msgs=msgs, number=(start_number - 1))
