@@ -129,7 +129,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/get_msgs/', methods=["GET", "POST"])
+@app.route('/get_msgs', methods=["GET", "POST"])
 def get_new_msgs():
     old_idmsgs = request.form.get('msgs')
 
