@@ -164,7 +164,7 @@ def get_new_msgs():
     else:
         number = request.args.get("number")
         print(str(number))
-        start_number = 4
+        start_number = 3
         if number:
             start_number = int(number)
 
@@ -182,7 +182,7 @@ def get_new_msgs():
         start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
 
         half_year_back_end = half_year_back + relativedelta(months=+0.5)
-        if start_number == 1:
+        if start_number == 0.5:
             half_year_back_end = date.today()
         end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
 
