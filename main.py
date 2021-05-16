@@ -179,8 +179,16 @@ def get_new_msgs():
             "returnUrl": "/dashboard",
             "login": "",
         }
+        
+        # Getting msgs separately because request error h12
+        half_year_back = date.today() + relativedelta(months=-6)
+        start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
+        
+        half_year_back_end = half_year_back + relativedelta(months=+1)
+        end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
+
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=custom&l=prijate&from=01012021&to=01022021",
+                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=custom&l=prijate&from="+start_month+"&to="+end_month,
                                    payload)
 
         msgs = get_msgs(get_idmsg(page_komens))
