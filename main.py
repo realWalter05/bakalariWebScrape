@@ -25,6 +25,7 @@ def get_idmsg(url):
     msgs_table = bs.findAll(attrs="message_list_table_item")
     ids_msg = []
     for msg in msgs_table:
+        print(msg)
         ids_msg.append(msg['data-idmsg'])
 
     return ids_msg
@@ -192,7 +193,7 @@ def get_new_msgs():
         msgs = get_msgs(get_idmsg(page_komens))
         msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
 
-        if start_number == 1:
+        if start_number == 5:
             return render_template('index.html', msgs=msgs, done="done")
 
         return render_template('index.html', msgs=msgs, number=(start_number - 5))
