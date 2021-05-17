@@ -163,7 +163,7 @@ def get_new_msgs():
     # We're here from index to setup first msgs
     else:
         number = request.args.get("number")
-        start_number = 90
+        start_number = 30
         if number:
             start_number = int(number)
 
@@ -179,8 +179,8 @@ def get_new_msgs():
         half_year_back = date.today() + relativedelta(days=-start_number)
         start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
 
-        half_year_back_end = half_year_back + relativedelta(days=+10)
-        if start_number == 10:
+        half_year_back_end = half_year_back + relativedelta(days=+5)
+        if start_number == 5:
             half_year_back_end = date.today()
 
         end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
@@ -195,4 +195,4 @@ def get_new_msgs():
         if start_number == 1:
             return render_template('index.html', msgs=msgs, done="done")
 
-        return render_template('index.html', msgs=msgs, number=(start_number - 10))
+        return render_template('index.html', msgs=msgs, number=(start_number - 5))
