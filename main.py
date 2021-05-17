@@ -195,5 +195,5 @@ def get_new_msgs():
 
         if start_number == 5:
             return render_template('index.html', msgs=msgs, done="done")
-
+        print("leaving")
         return render_template('index.html', msgs=msgs, number=(start_number - 5))
