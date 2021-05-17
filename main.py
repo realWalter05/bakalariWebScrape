@@ -163,13 +163,11 @@ def get_new_msgs():
     # We're here from index to setup first msgs
     else:
         number = request.args.get("number")
-        print(str(number))
-        start_number = 1
+        start_number = 90
         if number:
             start_number = int(number)
 
         print("There are no msgs yet")
-        print(start_number)
         payload = {
             "username": "zikav29z",
             "password": "1c2zkH51",
@@ -178,12 +176,13 @@ def get_new_msgs():
         }
 
         # Getting msgs separately because request error h12
-        half_year_back = date.today() + relativedelta(months=-start_number)
+        half_year_back = date.today() + relativedelta(days=-start_number)
         start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
 
-        half_year_back_end = half_year_back + relativedelta(months=+1)
-        if start_number == 1:
+        half_year_back_end = half_year_back + relativedelta(days=+10)
+        if start_number == 10:
             half_year_back_end = date.today()
+
         end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
 
         page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
@@ -196,4 +195,4 @@ def get_new_msgs():
         if start_number == 1:
             return render_template('index.html', msgs=msgs, done="done")
 
-        return render_template('index.html', msgs=msgs, number=(start_number - 1))
+        return render_template('index.html', msgs=msgs, number=(start_number - 10))
