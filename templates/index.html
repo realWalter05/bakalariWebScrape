@@ -4,15 +4,23 @@
 <div class="waiting-bar">
     <div class="ball">Loading...</div>
 </div>
+{% if login %}
+    <script>ShowLogin();</script>
+{% endif %}
+
 {% if msgs %}
     {% autoescape false %}
         <script>SetLocalStorage({{ msgs }});</script>
-        <script>window.location.replace("https://banakmis.herokuapp.com");</script>
+        {% if done %}
+           <script>window.location.replace("https://banakmis.herokuapp.com");</script>
+        {% endif %}
+        {% if number %}
+            <script>SendStartNumber({{ number }});</script>
+        {% endif %}
     {% endautoescape %}
 {% endif %}
 <article class="msgs">
 </article>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <!-- coffee --> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7388923265705226" data-ad-slot="1732298508" data-ad-format="auto" data-full-width-responsive="true"></ins> <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
 <script>
     CheckLocalStorage();
 </script>
