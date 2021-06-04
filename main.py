@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from requests import session
 from flask import Flask, render_template, request
 from itertools import groupby
 from datetime import date
@@ -130,52 +131,87 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/login', methods=["GET", "POST"])
+def index():
+    login_username = request.form.get('login')
+    login_pwd = request.form.get('pwd')
+
+    pwd = "1c2zkH51"
+    session["username"] = "zikav29z"
+    session["password"] = pwd.encode('base64', 'strict')
+    return render_template('index.html')
+
+
 @app.route('/get_msgs', methods=["GET", "POST"])
 def get_new_msgs():
     old_idmsgs = request.form.get('msgs')
 
-    # We're here from index to get a new msgs
-    if old_idmsgs:
-        old_idmsgs = json.loads(request.form.get('msgs'))
-        print("there are data")
-        # FUJblahbjwoengpaiungjpfasodngmkoy
-        payload = {
-            "username": "zikav29z",
-            "password": "1c2zkH51",
-            "returnUrl": "/dashboard",
-            "login": "",
-        }
-        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
-                                   payload)
+    if session.get("username"):
+        if session.get("password"):
+            # We're here from index to get a new msgs
+            if old_idmsgs:
+                old_idmsgs = json.loads(request.form.get('msgs'))
+                print("there are data")
+                # FUJblahbjwoengpaiungjpfasodngmkoy
+                payload = {
+                    "username": "zikav29z",
+                    "password": "1c2zkH51",
+                    "returnUrl": "/dashboard",
+                    "login": "",
+                }
+                page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                           "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
+                                           payload)
 
-        idmsgs = get_new_idmsgs(page_komens, old_idmsgs)
-        if not idmsgs:
-            return render_template('index.html', status=":O")
+                idmsgs = get_new_idmsgs(page_komens, old_idmsgs)
+                if not idmsgs:
+                    return render_template('index.html', status=":O")
+                else:
+                    msgs = get_msgs(idmsgs)
+                    # Merging with old_idmsgs
+
+                    for msg in msgs[::-1]:
+                        for key in old_idmsgs:
+                            if msg["Jmeno"] == key[0]["Jmeno"]:
+                                key.insert(0, msg)
+                    return render_template('index.html', msgs=old_idmsgs, status=":ú")
+            # We're here from index to setup first msgs
+            else:
+                number = request.args.get("number")
+                start_number = 30
+                if number:
+                    start_number = int(number)
+
+                print("There are no msgs yet")
+                payload = {
+                    "username": "zikav29z",
+                    "password": "1c2zkH51",
+                    "returnUrl": "/dashboard",
+                    "login": "",
+                }
+
+                # Getting msgs separately because request error h12
+                half_year_back = date.today() + relativedelta(days=-start_number)
+                start_month = str(half_year_back.day) + str(half_year_back.month) + str(half_year_back.year)
+
+                half_year_back_end = half_year_back + relativedelta(days=+5)
+                if start_number == 5:
+                    half_year_back_end = date.today()
+
+                end_month = str(half_year_back_end.day) + str(half_year_back_end.month) + str(half_year_back_end.year)
+
+                page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
+                                           "https://zsebenese.bakalari.cz/next/komens.aspx?s=custom&l=prijate&from="+start_month+"&to="+end_month,
+                                           payload)
+
+                msgs = get_msgs(get_idmsg(page_komens))
+                msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
+
+                if start_number == 5:
+                    return render_template('index.html', msgs=msgs, done="done")
+                print("leaving")
+                return render_template('index.html', msgs=msgs, number=(start_number - 5))
         else:
-            msgs = get_msgs(idmsgs)
-            # Merging with old_idmsgs
-
-            for msg in msgs[::-1]:
-                for key in old_idmsgs:
-                    if msg["Jmeno"] == key[0]["Jmeno"]:
-                        key.insert(0, msg)
-            return render_template('index.html', msgs=old_idmsgs, status=":ú")
-    # We're here from index to setup first msgs
+            return render_template('index.html', login="nonlog")
     else:
-        print("There are no msgs yet")
-        payload = {
-            "username": "zikav29z",
-            "password": "1c2zkH51",
-            "returnUrl": "/dashboard",
-            "login": "",
-        }
-
-        page_komens = send_payload("https://zsebenese.bakalari.cz/Login",
-                                   "https://zsebenese.bakalari.cz/next/komens.aspx?s=mesic",
-                                   payload)
-
-        msgs = get_msgs(get_idmsg(page_komens))
-        msgs = group_msgs(sorted(msgs, key=lambda k: k['Jmeno']))
-
-        return render_template('index.html', msgs=msgs)
+        return render_template('index.html', login="nonlog")
